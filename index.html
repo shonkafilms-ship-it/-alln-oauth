@@ -400,6 +400,17 @@
       submitBtn.textContent = 'Discovering…';
       submitBtn.disabled = true;
       form.querySelectorAll('input').forEach(function (i) { i.disabled = true; });
+      
+      // Send to ALLN Onboarding Engine
+      fetch('https://build.twin.so/triggers/alln-shopify-onboard-v2/webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          brand_name: brandName,
+          website_url: websiteUrl,
+          social_handle: socialHandle
+        })
+      }).catch(function() {});
 
       // After 3 seconds, show success
       setTimeout(function () {
