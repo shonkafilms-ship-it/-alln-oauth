@@ -1,428 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ALLN — Brand Intelligence</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
-  <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-      background: #0A0A0A;
-      color: #FFFFFF;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 40px 24px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 480px;
-    }
-
-    /* Header */
-    .header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .logo {
-      display: inline-block;
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: 0.35em;
-      color: #B08D57;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .tagline {
-      font-size: 13px;
-      font-weight: 400;
-      color: #555555;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: #B08D57;
-      opacity: 0.35;
-      margin: 24px auto 0;
-    }
-
-    /* Form Card */
-    .card {
-      background: #111111;
-      border: 1px solid #1E1E1E;
-      border-radius: 12px;
-      padding: 36px 32px 32px;
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #FFFFFF;
-      margin-bottom: 4px;
-      letter-spacing: 0.01em;
-    }
-
-    .card-subtitle {
-      font-size: 13px;
-      font-weight: 400;
-      color: #444444;
-      margin-bottom: 28px;
-      line-height: 1.5;
-    }
-
-    /* Fields */
-    .field {
-      margin-bottom: 20px;
-    }
-
-    .field:last-of-type {
-      margin-bottom: 28px;
-    }
-
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: #888888;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      background: #0A0A0A;
-      border: 1px solid #2A2A2A;
-      border-radius: 8px;
-      padding: 13px 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: #FFFFFF;
-      outline: none;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    input[type="text"]::placeholder {
-      color: #333333;
-    }
-
-    input[type="text"]:focus {
-      border-color: #B08D57;
-      box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.08);
-    }
-
-    input[type="text"]:hover:not(:focus) {
-      border-color: #333333;
-    }
-
-    /* Button */
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 15px 24px;
-      background: #B08D57;
-      color: #0A0A0A;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    .btn:hover:not(:disabled) {
-      background: #C9A46A;
-    }
-
-    .btn:active:not(:disabled) {
-      transform: scale(0.99);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      background: #2A2A2A;
-      color: #666666;
-    }
-
-    /* Helper text */
-    .helper {
-      margin-top: 18px;
-      font-size: 12px;
-      font-weight: 400;
-      color: #3A3A3A;
-      line-height: 1.65;
-      text-align: center;
-    }
-
-    /* Success state */
-    .success {
-      display: none;
-      text-align: center;
-      padding: 12px 0 4px;
-    }
-
-    .success-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(176, 141, 87, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-    }
-
-    .success-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: #B08D57;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .success-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #FFFFFF;
-      margin-bottom: 10px;
-      letter-spacing: 0.01em;
-    }
-
-    .success-body {
-      font-size: 13px;
-      font-weight: 400;
-      color: #555555;
-      line-height: 1.65;
-    }
-
-    .success-body span {
-      color: #B08D57;
-      font-weight: 500;
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      margin-top: 28px;
-    }
-
-    .footer a {
-      font-size: 11px;
-      color: #2E2E2E;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      transition: color 0.2s ease;
-    }
-
-    .footer a:hover {
-      color: #B08D57;
-    }
-
-    /* Responsive */
-    @media (max-width: 520px) {
-      body {
-        padding: 32px 16px;
-        align-items: flex-start;
-      }
-      .card {
-        padding: 28px 20px 24px;
-      }
-      .logo {
-        font-size: 26px;
-      }
-      .header {
-        margin-bottom: 36px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALLN - Brand Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0A0A0A;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 40px 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.wrapper {
+  max-width: 560px;
+  margin: 0 auto;
+}
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.logo {
+  color: #B08D57;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  margin-bottom: 8px;
+}
+.tagline {
+  font-size: 14px;
+  color: #888888;
+  font-weight: 400;
+}
+.card {
+  background: #111111;
+  border: 1px solid #2A2A2A;
+  border-radius: 12px;
+  padding: 32px;
+}
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.card-subtitle {
+  font-size: 14px;
+  color: #888888;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #AAAAAA;
+  margin-bottom: 6px;
+}
+.form-group input {
+  width: 100%;
+  background: #111111;
+  border: 1px solid #2A2A2A;
+  border-radius: 8px;
+  padding: 13px;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.form-group input::placeholder {
+  color: #555555;
+}
+.form-group input:focus {
+  border-color: #B08D57;
+}
+.form-group input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.submit-btn {
+  width: 100%;
+  background: #B08D57;
+  color: #0A0A0A;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s ease;
+}
+.submit-btn:hover {
+  opacity: 0.9;
+}
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.helper-text {
+  font-size: 13px;
+  color: #666666;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 20px;
+}
+.success-state {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+.success-state .checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #B08D57;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+.success-state .checkmark svg {
+  width: 28px;
+  height: 28px;
+}
+.success-state h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.success-state p {
+  font-size: 14px;
+  color: #888888;
+  line-height: 1.5;
+}
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: #555555;
+}
+.footer a {
+  color: #555555;
+  text-decoration: none;
+}
+.footer a:hover {
+  color: #B08D57;
+}
+@media (max-width: 540px) {
+  .card { padding: 24px; }
+  .logo { font-size: 26px; }
+}
+</style>
 </head>
 <body>
-
-  <div class="container">
-
-    <div class="header">
-      <div class="logo">ALLN</div>
-      <div class="tagline">Brand Intelligence Platform</div>
-      <div class="divider"></div>
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">Set up your brand</div>
-      <div class="card-subtitle">Tell us about your brand and we'll do the rest.</div>
-
-      <form id="brandForm" novalidate>
-
-        <div class="field">
-          <label for="brandName">Brand Name</label>
-          <input
-            type="text"
-            id="brandName"
-            name="brandName"
-            placeholder="e.g. Gymshark"
-            autocomplete="organization"
-          />
-        </div>
-
-        <div class="field">
-          <label for="websiteUrl">Website URL</label>
-          <input
-            type="text"
-            id="websiteUrl"
-            name="websiteUrl"
-            placeholder="e.g. gymshark.com"
-            autocomplete="url"
-          />
-        </div>
-
-        <div class="field">
-          <label for="socialHandle">Primary Social Handle</label>
-          <input
-            type="text"
-            id="socialHandle"
-            name="socialHandle"
-            placeholder="@yourbrand"
-            autocomplete="off"
-          />
-        </div>
-
-        <button type="submit" class="btn" id="submitBtn">
-          Discover My Brand
-        </button>
-
-      </form>
-
-      <div class="success" id="successState">
-        <div class="success-icon">
-          <svg viewBox="0 0 24 24">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <div class="success-title">Discovery started.</div>
-        <div class="success-body">
-          Check your email for your<br />
-          <span>brand intelligence report.</span>
-        </div>
-      </div>
-
-      <p class="helper" id="helperText">
-        ALLN will automatically discover your hashtags, community,<br />
-        competitors, and ambassadors in minutes.
-      </p>
-
-    </div>
-
-    <div class="footer">
-      <a href="mailto:mark@allnhq.com">mark@allnhq.com</a>
-    </div>
-
+<div class="wrapper">
+  <div class="header">
+    <div class="logo">ALLN</div>
+    <div class="tagline">Brand Intelligence Platform</div>
   </div>
 
-  <script>
-    // Shopify App Bridge init
-    (function () {
-      try {
-        var config = {
-          apiKey: 'cd1c255e9e36048061e356ea657aec73',
-          host: new URLSearchParams(window.location.search).get('host') || ''
-        };
-        if (window.createApp) {
-          window.__app = window.createApp(config);
-        }
-      } catch (e) {
-        console.warn('[ALLN] App Bridge not available:', e.message);
-      }
-    })();
+  <div class="card">
+    <div id="formSection">
+      <h2 class="card-title">Set up your brand</h2>
+      <p class="card-subtitle">Tell us about your brand and we will do the rest.</p>
 
-    // Form submission
-    var form        = document.getElementById('brandForm');
-    var submitBtn   = document.getElementById('submitBtn');
-    var successState = document.getElementById('successState');
-    var helperText  = document.getElementById('helperText');
+      <form id="setupForm">
+        <div class="form-group">
+          <label>Brand Name</label>
+          <input type="text" id="brandName" placeholder="e.g. Gymshark" required>
+        </div>
+        <div class="form-group">
+          <label>Website URL</label>
+          <input type="text" id="websiteUrl" placeholder="e.g. gymshark.com" required>
+        </div>
+        <div class="form-group">
+          <label>Primary Social Handle</label>
+          <input type="text" id="socialHandle" placeholder="@yourbrand" required>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Discover My Brand</button>
+      </form>
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+      <p class="helper-text">ALLN will automatically discover your hashtags, community, competitors, and ambassadors in minutes.</p>
+    </div>
 
-      var brandName    = document.getElementById('brandName').value.trim();
-      var websiteUrl   = document.getElementById('websiteUrl').value.trim();
-      var socialHandle = document.getElementById('socialHandle').value.trim();
+    <div class="success-state" id="successState">
+      <div class="checkmark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h3>Discovery started.</h3>
+      <p>Check your email for your brand intelligence report.</p>
+    </div>
+  </div>
 
-      // Basic validation
-      if (!brandName || !websiteUrl || !socialHandle) {
-        ['brandName', 'websiteUrl', 'socialHandle'].forEach(function (id) {
-          var el = document.getElementById(id);
-          if (!el.value.trim()) {
-            el.style.borderColor = 'rgba(176,141,87,0.6)';
-            el.addEventListener('input', function clearError() {
-              el.style.borderColor = '';
-              el.removeEventListener('input', clearError);
-            });
-          }
-        });
-        return;
-      }
+  <div class="footer">
+    <a href="mailto:mark@allnhq.com">mark@allnhq.com</a>
+  </div>
+</div>
 
-      // Loading state
-      submitBtn.textContent = 'Discovering…';
-      submitBtn.disabled = true;
-      form.querySelectorAll('input').forEach(function (i) { i.disabled = true; });
-      
-      // Send to ALLN Onboarding Engine
-      fetch('https://build.twin.so/triggers/alln-shopify-onboard-v2/webhook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          brand_name: brandName,
-          website_url: websiteUrl,
-          social_handle: socialHandle
-        })
-      }).catch(function() {});
-
-      // After 3 seconds, show success
-      setTimeout(function () {
-        form.querySelectorAll('.field').forEach(function (f) {
-          f.style.display = 'none';
-        });
-        submitBtn.style.display  = 'none';
-        helperText.style.display = 'none';
-        successState.style.display = 'block';
-      }, 3000);
+<script>
+(function() {
+  // Init Shopify App Bridge
+  var AppBridge = window['app-bridge'];
+  if (AppBridge && AppBridge.createApp) {
+    AppBridge.createApp({
+      apiKey: 'cd1c255e9e36048061e356ea657aec73',
+      host: new URLSearchParams(window.location.search).get('host')
     });
-  </script>
+  }
 
+  var form = document.getElementById('setupForm');
+  var btn = document.getElementById('submitBtn');
+  var formSection = document.getElementById('formSection');
+  var successState = document.getElementById('successState');
+  var inputs = form.querySelectorAll('input');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var brandName = document.getElementById('brandName').value;
+    var websiteUrl = document.getElementById('websiteUrl').value;
+    var socialHandle = document.getElementById('socialHandle').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Discovering...';
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = true;
+    }
+
+    // POST to webhook
+    fetch('https://build.twin.so/triggers/alln-preview-form-submission/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        brand_name: brandName,
+        website_url: websiteUrl,
+        social_handle: socialHandle
+      })
+    }).catch(function() {});
+
+    // After 3 seconds show success
+    setTimeout(function() {
+      formSection.style.display = 'none';
+      successState.style.display = 'block';
+    }, 3000);
+  });
+})();
+</script>
 </body>
 </html>
