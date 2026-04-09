@@ -41,7 +41,8 @@ export default async function handler(request) {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         client_id: 'cd1c255e9e36048061e356ea657aec73',
-        client_secret: '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',
+        client_secret: process.env.SHOPIFY_CLIENT_SECRET,
+
         code: code,
       }),
     });
